@@ -1,0 +1,30 @@
+version: '3'
+services:
+  ghidraserver:
+    build: .
+    image: cedws/docker-ghidraserver
+    ports:
+      - 13100:13100
+      - 13101:13101
+      - 13102:13102
+    volumes:
+      - repositories:/srv/repositories
+    environment:
+      # Remove environment variables to disable a feature!
+      # Changing the value to 0 will have no effect
+      - GHIDRASERVER_FQDN=example.com
+      - GHIDRASERVER_IP=127.0.0.1
+      - GHIDRASERVER_PORT=13100
+      - GHIDRASERVER_ENABLE_REVERSE_LOOKUP=1
+      - GHIDRASERVER_AUTHENTICATION_MODE=0
+      - GHIDRASERVER_AD_DOMAIN=example.com
+      - GHIDRASERVER_PASSWORD_EXPIRATION=1
+      - GHIDRASERVER_ENABLE_USERID_PROMPT=1
+      - GHIDRASERVER_ENABLE_AUTOPROVISION=1
+      - GHIDRASERVER_ENABLE_ANONYMOUS=1
+      - GHIDRASERVER_ENABLE_SSH=1
+      - GHIDRASERVER_JAVA_XMS=1024
+      - GHIDRASERVER_JAVA_XMX=1024
+
+volumes:
+  repositories:
