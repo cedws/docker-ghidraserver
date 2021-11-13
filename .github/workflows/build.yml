@@ -39,5 +39,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args:
-            GHIDRA_ARCHIVE: ${{ env.GHIDRA_ARCHIVE }}
+          build-args: |
+            GHIDRA_ARCHIVE=${{ env.GHIDRA_ARCHIVE }}
