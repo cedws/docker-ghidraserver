@@ -28,8 +28,8 @@ WORKDIR /home/ghidra
 
 ADD --chown=ghidra:ghidra ${GHIDRA_ARCHIVE} .
 RUN unzip ghidra*.zip && \
-	rm ghidra*.zip && \
-	mv ghidra*/* .
+    rm ghidra*.zip && \
+    mv ghidra*/* .
 
 USER root
 

@@ -15,27 +15,27 @@ docker-compose up -d
 
 With bare Docker:
 ```sh
-docker run --env GHIDRASERVER_FQDN=YOUR_SERVER_FQDN -p 13100-13102:13100-13102 -v "$PWD/repositories:/srv/repositories" --name ghidraserver ghidraserver
+docker run --env GHIDRASERVER_FQDN=YOUR_SERVER_FQDN -p 13100-13102:13100-13102 -v "$PWD/repositories:/srv/repositories" --name ghidraserver ghcr.io/cedws/docker-ghidraserver:master
 ```
 
 ## Adding users
 With Compose:
 ```sh
-docker-compose exec ghidraserver /entrypoint.sh "./svrAdmin -add myuser --p"
+docker-compose exec server /entrypoint.sh "./svrAdmin -add myuser --p"
 ```
 
 With bare Docker:
 ```sh
-docker exec -it docker-ghidra_ghidraserver_1 /entrypoint.sh "./svrAdmin -add myuser --p"
+docker exec -it ghidraserver /entrypoint.sh "./svrAdmin -add myuser --p"
 ```
 
 ## Removing users
 With Compose:
 ```sh
-docker-compose exec ghidraserver /entrypoint.sh "./svrAdmin -remove myuser"
+docker-compose exec server /entrypoint.sh "./svrAdmin -remove myuser"
 ```
 
 With bare Docker:
 ```sh
-docker exec -it docker-ghidra_ghidraserver_1 /entrypoint.sh "./svrAdmin -remove myuser"
+docker exec -it ghidraserver /entrypoint.sh "./svrAdmin -remove myuser"
 ```

@@ -213,8 +213,8 @@ wrapper.java.maxmemory=${GHIDRASERVER_JAVA_XMX}
 EOF
 
 if [ $# -gt 0 ]; then
-	cd ~/server
-	exec $@
+    cd ~/server
+    exec $@
 fi
 
 export java="java"

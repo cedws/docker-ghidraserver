@@ -1,8 +1,8 @@
 version: '3'
 services:
-  ghidraserver:
+  server:
     build: .
-    image: cedws/docker-ghidraserver
+    image: ghcr.io/cedws/docker-ghidraserver:master
     ports:
       - 13100:13100
       - 13101:13101
