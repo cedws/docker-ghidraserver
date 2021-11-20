@@ -2,7 +2,7 @@ version: '3'
 services:
   server:
     build: .
-    image: ghcr.io/cedws/docker-ghidraserver:master
+    image: ghcr.io/cedws/docker-ghidraserver:latest
     ports:
       - 13100:13100
       - 13101:13101
