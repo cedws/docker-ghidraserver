@@ -1,3 +1,25 @@
+FROM alpine:latest AS extract
+
+ARG GHIDRA_ARCHIVE
+ADD ${GHIDRA_ARCHIVE} /
+
+WORKDIR /home/ghidra
+
+RUN mkdir -p Ghidra/Features
+RUN mkdir -p Ghidra
+
+# Extract the ZIP and throw away the extras we don't need
+# Ideally they would distribute the server component as a separate artifact but anyway
+RUN apk add unzip
+RUN unzip -d / /ghidra*.zip && \
+    rm /ghidra*.zip && \
+    mv /ghidra*/Ghidra/Features/GhidraServer  Ghidra/Features && \
+    mv /ghidra*/Ghidra/Framework              Ghidra && \
+    mv /ghidra*/Ghidra/application.properties Ghidra && \
+    mv /ghidra*/server                        .
+
+RUN /bin/sh -c "ln -s $(realpath $(find -name wrapper.jar)) wrapper.jar"
+
 FROM openjdk:11-slim
 
 ARG GHIDRA_ARCHIVE
@@ -10,9 +32,6 @@ ENV GHIDRASERVER_JAVA_XMX 1024
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt update
-RUN apt install -yq unzip
-
 COPY entrypoint.sh /
 COPY start.sh /
 RUN chmod +x /entrypoint.sh /start.sh
@@ -21,16 +40,14 @@ ENTRYPOINT ["/entrypoint.sh"]
 RUN mkdir /srv/repositories
 VOLUME /srv/repositories
 
+# Create user and switch to it, makes permissions kosher
 RUN useradd ghidra
 USER ghidra
 
 WORKDIR /home/ghidra
+COPY --from=extract --chown=ghidra:ghidra /home/ghidra /home/ghidra
 
-ADD --chown=ghidra:ghidra ${GHIDRA_ARCHIVE} .
-RUN unzip ghidra*.zip && \
-    rm ghidra*.zip && \
-    mv ghidra*/* .
-
+# Switch back to root since the entrypoint needs to chown the repositories mount
 USER root
 
 EXPOSE 13100

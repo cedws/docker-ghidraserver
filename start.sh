@@ -221,4 +221,4 @@ export java="java"
 export ghidra_home="$HOME"
 export classpath_frag="../Ghidra/Features/GhidraServer/data/classpath.frag"
 
-exec java -jar $(find -name wrapper.jar) -c ~/server/server.conf
+exec java -jar ./wrapper.jar -c ~/server/server.conf
