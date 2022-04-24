@@ -1,6 +1,6 @@
 FROM alpine:latest AS extract
 
-ARG GHIDRA_ARCHIVE
+ENV GHIDRA_ARCHIVE https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.1.3_build/ghidra_10.1.3_PUBLIC_20220421.zip
 ADD ${GHIDRA_ARCHIVE} /
 
 WORKDIR /home/ghidra
@@ -16,7 +16,8 @@ RUN unzip -d / /ghidra*.zip && \
     mv /ghidra*/Ghidra/Features/GhidraServer  Ghidra/Features && \
     mv /ghidra*/Ghidra/Framework              Ghidra && \
     mv /ghidra*/Ghidra/application.properties Ghidra && \
-    mv /ghidra*/server                        .
+    mv /ghidra*/server                        . && \
+    mv /ghidra*/support                       .
 
 RUN /bin/sh -c "ln -s $(realpath $(find -name wrapper.jar)) wrapper.jar"
 
@@ -27,6 +28,7 @@ ARG GHIDRA_ARCHIVE
 ENV GHIDRASERVER_PORT 13100
 ENV GHIDRASERVER_AUTHENTICATION_MODE 0
 ENV GHIDRASERVER_PASSWORD_EXPIRATION 1
+ENV GHIDRASERVER_ENABLE_USERID_PROMPT 1
 ENV GHIDRASERVER_JAVA_XMS 1024
 ENV GHIDRASERVER_JAVA_XMX 1024
 

@@ -15,7 +15,7 @@ docker-compose up -d
 
 With bare Docker:
 ```sh
-docker run --env GHIDRASERVER_FQDN=YOUR_SERVER_FQDN -p 13100-13102:13100-13102 -v "$PWD/repositories:/srv/repositories" --name ghidraserver ghcr.io/cedws/docker-ghidraserver:master
+docker run -e GHIDRASERVER_FQDN=YOUR_SERVER_FQDN -p 13100-13102:13100-13102 -v "$PWD/repositories:/srv/repositories" -d --name ghidraserver ghcr.io/cedws/docker-ghidraserver:latest
 ```
 
 ## Adding users
