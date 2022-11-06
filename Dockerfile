@@ -21,7 +21,7 @@ RUN unzip -d / /ghidra*.zip && \
 
 RUN /bin/sh -c "ln -s $(realpath $(find -name wrapper.jar)) wrapper.jar"
 
-FROM openjdk:11-slim
+FROM openjdk:17-slim
 
 ARG GHIDRA_ARCHIVE
 
