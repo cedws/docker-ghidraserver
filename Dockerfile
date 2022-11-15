@@ -1,6 +1,6 @@
 FROM alpine:latest AS extract
 
-ENV GHIDRA_ARCHIVE https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.2_build/ghidra_10.2_PUBLIC_20221101.zip
+ENV GHIDRA_ARCHIVE https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.2.1_build/ghidra_10.2.1_PUBLIC_20221110.zip
 ADD ${GHIDRA_ARCHIVE} /
 
 WORKDIR /home/ghidra
