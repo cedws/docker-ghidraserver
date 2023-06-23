@@ -207,10 +207,15 @@ wrapper.app.parameter.8=${GHIDRASERVER_ENABLE_USERID_PROMPT:+"-u"}
 wrapper.app.parameter.9=${GHIDRASERVER_ENABLE_AUTOPROVISION:+"-autoProvision"}
 wrapper.app.parameter.10=${GHIDRASERVER_ENABLE_ANONYMOUS:+"-anonymous"}
 wrapper.app.parameter.11=${GHIDRASERVER_ENABLE_SSH:+"-ssh"}
-
-wrapper.java.initmemory=${GHIDRASERVER_JAVA_XMS}
-wrapper.java.maxmemory=${GHIDRASERVER_JAVA_XMX}
 EOF
+
+if [ -n "$GHIDRASERVER_JAVA_XMS" ]; then
+    echo "wrapper.java.initmemory=${GHIDRASERVER_JAVA_XMS}" >> ~/server/server.conf
+fi
+
+if [ -n "$GHIDRASERVER_JAVA_XMX" ]; then
+    echo "wrapper.java.maxmemory=${GHIDRASERVER_JAVA_XMX}" >> ~/server/server.conf
+fi
 
 if [ $# -gt 0 ]; then
     cd ~/server
