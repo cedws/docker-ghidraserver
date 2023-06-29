@@ -1,0 +1,14 @@
+sources:
+  githubRelease:
+    kind: json
+    spec:
+      file: https://api.github.com/repos/NationalSecurityAgency/ghidra/releases
+      key: '.[0].assets.[0].browser_download_url'
+
+targets:
+  envVariable:
+    kind: yaml
+    sourceid: githubRelease
+    spec:
+      file: '.github/workflows/build.yml'
+      key: '$.env.GHIDRA_ARCHIVE'

@@ -39,3 +39,6 @@ With bare Docker:
 ```sh
 docker exec -it ghidraserver /entrypoint.sh "./svrAdmin -remove myuser"
 ```
+
+## Contribution
+This repository uses [updatecli](https://www.updatecli.io/) to update the reference to the latest Ghidra release artifact.
