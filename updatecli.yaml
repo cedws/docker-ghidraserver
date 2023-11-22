@@ -6,9 +6,17 @@ sources:
       key: '.[0].assets.[0].browser_download_url'
 
 targets:
-  envVariable:
+  workflow:
     kind: yaml
     sourceid: githubRelease
     spec:
       file: '.github/workflows/build.yml'
       key: '$.env.GHIDRA_ARCHIVE'
+  dockerfile:
+    kind: dockerfile
+    sourceid: githubRelease
+    spec:
+      file: Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: GHIDRA_ARCHIVE
