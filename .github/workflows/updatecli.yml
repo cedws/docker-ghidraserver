@@ -1,3 +1,5 @@
+name: Run updatecli
+
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -7,13 +9,11 @@ jobs:
   update:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-      packages: write
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.PAT }}
 
     - name: Install Updatecli in the runner
       uses: updatecli/updatecli-action@v2
@@ -22,3 +22,5 @@ jobs:
       run: updatecli apply
 
     - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Update dependencies with updatecli"
