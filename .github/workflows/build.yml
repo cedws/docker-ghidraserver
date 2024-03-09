@@ -9,7 +9,6 @@ on:
       - master
 #
 env:
-  GHIDRA_ARCHIVE: https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.0_build/ghidra_11.0_PUBLIC_20231222.zip
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 #
@@ -53,5 +52,3 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            GHIDRA_ARCHIVE=${{ env.GHIDRA_ARCHIVE }}
