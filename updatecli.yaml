@@ -1,5 +1,23 @@
+scms:
+  github:
+    kind: git
+    spec:
+      username: oauth2
+      password: "{{ requiredEnv "PAT" }}"
+      branch: master
+      url: https://github.com/cedws/docker-ghidraserver
+      user: github-actions[bot]
+      email: 41898282+github-actions[bot]@users.noreply.github.com
+
 sources:
-  githubRelease:
+  ghidraTag:
+    kind: json
+    transformers:
+      - trimprefix: "Ghidra "
+    spec:
+      file: https://api.github.com/repos/NationalSecurityAgency/ghidra/releases
+      key: '.[0].name'
+  ghidraDownload:
     kind: json
     spec:
       file: https://api.github.com/repos/NationalSecurityAgency/ghidra/releases
@@ -7,10 +25,20 @@ sources:
 
 targets:
   dockerfile:
+    name: Update Dockerfile with latest Ghidra artifact
     kind: dockerfile
-    sourceid: githubRelease
+    sourceid: ghidraDownload
+    scmid: github
     spec:
       file: Dockerfile
       instruction:
         keyword: ARG
         matcher: GHIDRA_ARCHIVE
+  tag:
+    name: Create tag
+    kind: gittag
+    sourceid: ghidraTag
+    scmid: github
+    dependsonchange: true
+    dependson:
+      - dockerfile
