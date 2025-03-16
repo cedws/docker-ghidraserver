@@ -21,7 +21,7 @@ RUN unzip -d / /ghidra*.zip && \
 
 RUN /bin/sh -c "ln -s $(realpath $(find -name wrapper.jar)) wrapper.jar"
 
-FROM openjdk:17-slim
+FROM openjdk:21-slim
 
 ENV GHIDRASERVER_PORT 13100
 ENV GHIDRASERVER_AUTHENTICATION_MODE 0
